@@ -25,7 +25,7 @@ pipeline {
         script {
           sh 'docker stop test-app'
 
-          sh 'docker run -itd -p 8081:80 yheancarh/jenkins-scm:${BUILD_NUMBER} --name test-app'
+          sh 'docker run -itd -p 8081:80 --name test-app yheancarh/jenkins-scm:${BUILD_NUMBER}'
         }
       }
     }

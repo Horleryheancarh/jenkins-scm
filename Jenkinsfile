@@ -23,9 +23,9 @@ pipeline {
     stage('Run Docker Container') {
       steps {
         script {
-          sh 'docker stop yheancarh/jenkins-scm'
+          // sh 'docker stop test-app'
 
-          sh 'docker run -itd -p 8081:80 yheancarh/jenkins-scm'
+          sh 'docker run -itd -p 8081:80 yheancarh/jenkins-scm --name test-app'
         }
       }
     }

@@ -39,6 +39,7 @@ pipeline {
     }
 
     stage('Push to Docker') {
+      when { expression { res.status == 200 } }
       steps {
         script {
           sh 'echo $DOCKERHUB_PSW | docker login -u $DOCKERHUB_USR --password-stdin'

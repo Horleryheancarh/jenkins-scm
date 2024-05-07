@@ -23,7 +23,7 @@ pipeline {
     stage('Run Docker Container') {
       steps {
         script {
-          sh 'docker run -itd -p 8081:80 yheancarh/jenkins-scm:-${BUILD_NUMBER}'
+          sh 'docker run -itd -p 8081:80 yheancarh/jenkins-scm:${BUILD_NUMBER}'
         }
       }
     }

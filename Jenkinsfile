@@ -15,7 +15,7 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         script {
-          sh 'docker build -t yheancarh/jenkins-scm:${BUILD_NUMBER} .'
+          sh 'docker build -t yheancarh/jenkins-scm .'
         }
       }
     }
@@ -23,28 +23,17 @@ pipeline {
     stage('Run Docker Container') {
       steps {
         script {
-          sh 'docker run -itd -p 8081:80 yheancarh/jenkins-scm:${BUILD_NUMBER}'
-        }
-      }
-    }
-
-    stage ('Test Endpoint') {
-      steps {
-        script {
-          while (true) {
-            def res = httpRequest 'http://localhost:8081'
-          }
+          sh 'docker run -itd -p 8081:80 yheancarh/jenkins-scm'
         }
       }
     }
 
     stage('Push to Docker') {
-      when { expression { res.status == 200 } }
       steps {
         script {
           sh 'echo $DOCKERHUB_PSW | docker login -u $DOCKERHUB_USR --password-stdin'
 
-          sh 'docker run -itd -p 8081:80 yheancarh/jenkins-scm:${BUILD_NUMBER}'
+          sh 'docker run -itd -p 8081:80 yheancarh/jenkins-scm'
         }
       }
     }
